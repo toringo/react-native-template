@@ -1,14 +1,11 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
  * @format
  * @flow
  */
 
 import React, { Component } from 'react';
 import StoreProvider from './boot/StoreProvider';
-import Home from './home/HomeScreen';
+import AppWithNavigation from './nav/AppWithNavigation';
 
 console.disableYellowBox = true; // eslint-disable-line
 
@@ -17,7 +14,7 @@ class App extends Component<Props> {
   render() {
     return (
       <StoreProvider>
-        <Home />
+        <AppWithNavigation />
       </StoreProvider>
     );
   }

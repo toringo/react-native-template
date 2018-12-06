@@ -1,7 +1,7 @@
 /* @flow */
 import { applyMiddleware, compose, createStore } from 'redux';
-import { persistStore, persistReducer, persistCombineReducers } from 'redux-persist'; // 状态需要持久化， 离线保存store数据。
-import storage from 'redux-persist/lib/storage';
+import { persistStore, persistReducer } from 'redux-persist'; // 状态需要持久化， 离线保存store数据。
+import { AsyncStorage } from 'react-native';
 import rootReducer from './reducers';
 import middleware from './middleware';
 
@@ -9,7 +9,10 @@ import middleware from './middleware';
 
 const config = {
   key: 'root',
-  storage,
+  storage: AsyncStorage,
+  whitelist: ['home'],
+  backlist: ['topic'],
+  timeout: null,
 };
 if (__DEV__) {
   const xhr = global.originalXMLHttpRequest
@@ -26,7 +29,7 @@ const persistConfig = { enhancers };
 const store = createStore(reducers, initialState, compose(...enhancers));
 
 const persistor = persistStore(store, persistConfig, () => {
-    console.log('Test', store.getState());
+  // console.log('Test', store.getState());
 });
 
 export const restore = (onFinished?: () => void) => persistStore(

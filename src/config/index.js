@@ -5,12 +5,7 @@ const config = {
   enableReduxLogging: !!global.btoa,
   storeKeys: ['accounts', 'drafts', 'outbox', 'settings'],
   cacheKeys: [
-    'messages',
-    'mute',
-    'realm',
-    'subscriptions',
-    'streams',
-    'users',
+    'home',
   ],
 };
 export default config;

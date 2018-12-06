@@ -1,12 +1,18 @@
-/* @flow */
+/**
+ * Sample React Native Home
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow
+ */
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import {
   Platform, StyleSheet, Text, View,
 } from 'react-native';
-import { createUser } from './homeActions';
+
+import { addTopic } from './topicActions';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -35,14 +41,13 @@ const styles = StyleSheet.create({
 type Props = {};
 class Home extends Component<Props> {
   componentDidMount() {
-    // this.props.createUser({ name: 'sj' });
+    this.props.addTopic({ topic: 'tyus' });
   }
 
   render() {
-    console.log('home', this.props);
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to Home!</Text>
+        <Text style={styles.welcome}>Topic!</Text>
         <Text style={styles.instructions}>To get started, edit Home.js</Text>
         <Text style={styles.instructions}>{instructions}</Text>
       </View>
@@ -50,9 +55,11 @@ class Home extends Component<Props> {
   }
 }
 const mapStateToProps = (state, ownProps) => ({
-  home: state.home,
+  topics: state.topic,
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({ createUser: createUser(dispatch) });
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  addTopic: addTopic(dispatch),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
