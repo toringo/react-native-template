@@ -19,7 +19,7 @@ export default class StoreProvider extends Component<Props> {
     // restore(() => {
     //   timing.end('Store hydration');
     // });
-    restore(() => {});
+    // restore(() => {});
   }
 
   render() {

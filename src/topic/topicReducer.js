@@ -5,6 +5,6 @@ export default (state = initialState, action) => {
     case 'ADD_TOPIC':
       return state.concat(action.topic);
     default:
-      return initialState;
+      return state;
   }
 };

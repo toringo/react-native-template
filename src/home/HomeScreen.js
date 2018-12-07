@@ -26,11 +26,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
 });
 type Props = {};
 class Home extends Component<Props> {
@@ -43,14 +38,13 @@ class Home extends Component<Props> {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome to Home!</Text>
-        <Text style={styles.instructions}>To get started, edit Home.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <Text>{this.props.home.length}</Text>
       </View>
     );
   }
 }
 const mapStateToProps = (state, ownProps) => ({
-  home: state.home,
+    home: state.home,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({ createUser: createUser(dispatch) });
