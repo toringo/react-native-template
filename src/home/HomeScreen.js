@@ -2,18 +2,12 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { bindActionCreators } from 'redux';
 import {
-  Platform, StyleSheet, Text, View,
+  StyleSheet, Text, View,
 } from 'react-native';
 import { createUser } from './homeActions';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n'
-    + 'Shake or press menu button for dev menu',
-});
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -43,10 +37,13 @@ class Home extends Component<Props> {
     );
   }
 }
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state = {}, ownProps) => ({
     home: state.home,
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({ createUser: createUser(dispatch) });
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  // createUser: (params) => dispatch(createUser(params)),
+  createUser: bindActionCreators(createUser, dispatch),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

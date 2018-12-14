@@ -1,4 +1,4 @@
-export const createUser = (dispatch) => user => dispatch({
+export const createUser = user => ({
     type: 'ADD_USER',
     user,
   });

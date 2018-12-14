@@ -13,8 +13,8 @@ const config = {
   whitelist: ['home'],
   backlist: ['topic'],
   timeout: null,
-  version: 1,
-  debug: true,
+  // version: 1,
+  // debug: true,
 };
 if (__DEV__) {
   const xhr = global.originalXMLHttpRequest
@@ -22,7 +22,6 @@ if (__DEV__) {
       : global.XMLHttpRequest;
   global.XMLHttpRequest = xhr;
 }
-
 
 const reducers = persistReducer(config, rootReducer);
 const enhancers = [applyMiddleware(...middleware)];
