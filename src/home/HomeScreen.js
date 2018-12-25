@@ -5,18 +5,22 @@ import { connect } from 'react-redux';
 import { NavigationActions, StackActions } from 'react-navigation';
 // import { bindActionCreators } from 'redux';
 import {
-  StyleSheet, Text, View,
+  StyleSheet,
+  Text,
+  View,
   Button,
+  TouchableOpacity,
 } from 'react-native';
 import actions from './homeActions';
 
-// import { decrement } from './homeReducer';
+import { Title } from '../common';
+import { IconHome } from '../common/icons';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF',
-    paddingTop: 40,
+    paddingTop: 20,
   },
   welcome: {
     fontSize: 20,
@@ -24,8 +28,10 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   bookList: {
-      height: 40,
       backgroundColor: '#fff',
+      padding: 10,
+  },
+  row: {
       flexDirection: 'row',
   },
   button: {
@@ -36,12 +42,12 @@ const styles = StyleSheet.create({
 });
 type Props = {};
 
-const resetAction = StackActions.reset({
-    index: 0,
-    actions: [
-        NavigationActions.navigate({ routeName: 'login' }),
-    ],
-});
+// const resetAction = StackActions.reset({
+//     index: 0,
+//     actions: [
+//         NavigationActions.navigate({ routeName: 'login' }),
+//     ],
+// });
 
 class Home extends Component<Props> {
     handleToDelete=(id: string) => {
@@ -50,43 +56,61 @@ class Home extends Component<Props> {
     }
 
     logout() {
-        this.props.navigation.dispatch(resetAction);
-        // console.log('this.props.navigation', this.props.navigation);
+        // this.props.navigation.dispatch(resetAction);
+        this.props.navigation.navigate('Auth');
+    }
 
-        // this.props.navigation.navigate('login');
-        // this.props.navigation.push({ name: 'login', reset: true });
-        // this.props.navigation.goBack(login);
+    handleToDetailScreen=(item: Object) => {
+        console.log('item', item);
+        this.props.navigation.navigate('Detail', item);
     }
 
   render() {
     const { bookList } = this.props;
-    // console.log('this.props', this.props, this.state, bookList);
+    console.log('this.props.navigation', this.props.navigation);
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to Home!</Text>
-        {
+        <Title
+          leftView={(
+            <TouchableOpacity onPress={() => { this.props.navigation.openDrawer(); }}>
+              <IconHome size={24} color="red" />
+            </TouchableOpacity>
+          )}
+        />
+        <View style={styles.container}>
+          <Text style={styles.welcome}>Welcome to Home!</Text>
+          {
             bookList.map((item, index) => (
-              <View key={item.id} style={styles.bookList}>
-                <Text>书本名字:</Text>
-                <Text>{item.title}</Text>
-                <Text>{item.description}</Text>
-                <Button
-                  style={styles.button}
-                  onPress={() => { this.handleToDelete(item.id); }}
-                  title="delete"
-                  color="#841584"
-                  accessibilityLabel="delete"
-                />
-              </View>
+              <TouchableOpacity key={item.id} onPress={() => { this.handleToDetailScreen(item); }}>
+                <View style={styles.bookList}>
+                  <View style={styles.row}>
+                    <Text>
+                        书本名字:
+                      {item.title}
+                    </Text>
+                    <Button
+                      style={styles.button}
+                      onPress={() => { this.handleToDelete(item.id); }}
+                      title="delete"
+                      color="#841584"
+                      accessibilityLabel="delete"
+                    />
+                  </View>
+                  <Text>{item.description}</Text>
+                </View>
+              </TouchableOpacity>
+
                 ))
         }
-        <Button
-          style={styles.button}
-          onPress={() => { this.logout(); }}
-          title="logout"
-          color="#841584"
-          accessibilityLabel="logout"
-        />
+          <Button
+            style={styles.button}
+            onPress={() => { this.logout(); }}
+            title="logout"
+            color="#841584"
+            accessibilityLabel="logout"
+          />
+        </View>
+
       </View>
     );
   }

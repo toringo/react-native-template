@@ -31,13 +31,13 @@ import actionTypes from '../actionsType';
 export default createActions({
     [actionTypes.BOOK_LIST_GET]: () => {
       const bookList = [{
-        id: '1',
-        title: '123',
-        description: '123',
+        id: 1,
+        title: '倾城之恋',
+        description: '《倾城之恋》是一个动听而又近人情的故事。《倾城之恋》里，从腐旧的家庭里走出来的白流苏，香港之战的洗礼并不曾将她感化成为革命女性：香港之战影响范柳原，使她转向平实的生活，终于结婚了，但结婚并不使他变为圣人，完全放弃往日的生活习惯与作风。',
       }, {
-        id: '2',
-        title: '234',
-        description: '234',
+        id: 2,
+        title: '半生缘',
+        description: '半生缘》是张爱玲第一部完整的长篇小说，原名《十八春》，一九五一年结稿，后来张爱玲旅美期间，进行改写，删掉了一些略带政治色彩的结尾，改名为《半生缘》。',
       }];
       return bookList;
     },
