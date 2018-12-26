@@ -1,40 +1,31 @@
 import { Platform } from 'react-native';
-import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation';
-import MainScreen from '../tabs/MainScreen';
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import LoginScreen from '../login/LoginScreen';
+import Main from '../tabs/Main';
+import DetailScreen from '../home/DetailScreen';
 
-// export default createAppContainer(createStackNavigator(
-//   {
-//     login: { screen: LoginScreen },
-//     main: { screen: MainScreen },
-//   },
-//   {
-//     initialRouteName: 'login',
-//     headerMode: 'none',
-//     cardStyle: {
-//       backgroundColor: 'white',
-//     },
-//     mode: Platform.OS === 'ios' ? 'modal' : 'card',
-//   }
-// ));
-
-// const AuthenticationNavigator = createStackNavigator({
-//     login: { screen: LoginScreen },
-//     main: { screen: MainScreen },
-// }, {
-//     initialRouteName: 'login',
-//     headerMode: 'none',
-//     cardStyle: {
-//         backgroundColor: 'white',
-//     },
-//     mode: Platform.OS === 'ios' ? 'modal' : 'card',
-// }
-// );
-// export default AuthenticationNavigator;
-
-export default createSwitchNavigator({
-    login: { screen: LoginScreen },
-    main: { screen: MainScreen },
+// app内的tab主页
+const AppStack = createStackNavigator({
+    Main,
+    Detail: DetailScreen,
 }, {
-    initialRouteName: 'login',
-});
+    headerMode: 'none',
+}
+);
+// app的登录页
+const AuthStack = createStackNavigator({ Login: LoginScreen });
+
+export default createSwitchNavigator(
+  {
+    App: AppStack,
+    Auth: AuthStack,
+  },
+  {
+    initialRouteName: 'Auth',
+    // headerMode: 'none',
+    cardStyle: {
+      backgroundColor: 'white',
+    },
+    mode: Platform.OS === 'ios' ? 'modal' : 'card',
+  }
+);

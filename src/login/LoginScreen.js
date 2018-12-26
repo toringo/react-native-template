@@ -6,11 +6,7 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { NavigationActions, StackActions } from 'react-navigation';
-import { bindActionCreators } from 'redux';
 import actions from './LoginActions';
-// import loginAction from './LoginActions';
-
 
 const styles = StyleSheet.create({
     container: {
@@ -19,21 +15,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
-const resetAction = StackActions.reset({
-    index: 0,
-    actions: [
-        NavigationActions.navigate({ routeName: 'main' }),
-    ],
-});
-
-
 class LoginScreen extends Component<Props, State> {
+    static navigationOptions = {
+        title: '请登录',
+    };
+
     shouldComponentUpdate(nextProps, nextState) {
         if (nextProps.status === '登陆成功' && nextProps.isSuccess) {
-            // console.log('resetAction', resetAction);
-            // this.props.navigation.dispatch(resetAction);
-            // this.props.navigation.reset([NavigationActions.navigate({ routeName: 'main' })], 0);
-            this.props.navigation.navigate('main');
+            this.props.navigation.navigate('App');
             return false;
         }
         return true;
@@ -57,11 +46,10 @@ class LoginScreen extends Component<Props, State> {
 
     render() {
         console.log('this.props', this.props);
-        // const { loginAction } = this.props;
         return (
           <View style={styles.container}>
             <Text>
-状态:
+                状态:
               {this.props.status}
             </Text>
             <TouchableOpacity onPress={() => { this.handleToLogin(); }} style={{ marginTop: 50 }}>
@@ -87,8 +75,6 @@ const mapDispatchToProps = (dispatch) => ({
                dispatch(actions.loginInDone(user));
           },
           loginFail: () => { dispatch(actions.loginInError(false)); },
-
-        // loginAction: bindActionCreators(loginAction, dispatch),
       });
 export default connect(
     mapStateToProps,
